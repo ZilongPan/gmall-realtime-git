@@ -1,0 +1,38 @@
+<configuration>
+    <!--在hadoop上存储数据的目录-->
+    <property>
+        <name>hbase.rootdir</name>
+        <value>hdfs://hadoop22:8020/hbase</value>
+    </property>
+    <!--是否使用集群模式-->
+    <property>
+        <name>hbase.cluster.distributed</name>
+        <value>true</value>
+    </property>
+    <!--Zookeeper的地址-->
+    <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>hadoop22,hadoop23,hadoop24</value>
+    </property>
+
+    <!--整合phoenix-->
+    <property>
+        <name>phoenix.schema.isNamespaceMappingEnabled</name>
+        <value>true</value>
+    </property>
+    <!-- phoenix regionserver 二级索引配置参数-->
+    <property>
+        <name>hbase.regionserver.wal.codec</name>
+        <value>org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec</value>
+    </property>
+
+    <!--解决 hadoop 2.x时的报错 hadoop3.x配不配都可以-->
+    <property>
+        <name>hbase.unsafe.stream.capability.enforce</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>hbase.wal.provider</name>
+        <value>filesystem</value>
+    </property>
+</configuration>

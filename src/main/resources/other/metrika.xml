@@ -1,0 +1,55 @@
+<yandex>
+    <!--开启监听端口允许监听-->
+    <listen_host>::</listen_host>
+    <listen_host>0.0.0.0</listen_host>
+    <listen_try>1</listen_try>
+
+
+    <!--配置分片和副本的策略-->
+    <clickhouse_remote_servers>
+        <gmall_cluster> <!-- 集群名称-->
+            <shard>         <!--集群的第一个分片-->
+                <internal_replication>true</internal_replication>
+                <replica>    <!--该分片的第一个副本-->
+                    <host>hadoop22</host>
+                    <port>9000</port>
+                </replica>
+                <replica>    <!--该分片的第二个副本-->
+                    <host>hadoop23</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+
+            <shard>  <!--集群的第二个分片-->
+                <internal_replication>true</internal_replication>
+                <replica>    <!--该分片的第一个副本-->
+                    <host>hadoop24</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </gmall_cluster>
+    </clickhouse_remote_servers>
+    <!--配置zookeeper地址-->
+    <zookeeper-servers>
+        <node index="1">
+            <host>hadoop22</host>
+            <port>2181</port>
+        </node>
+        <node index="2">
+            <host>hadoop23</host>
+            <port>2181</port>
+        </node>
+        <node index="3">
+            <host>hadoop24</host>
+            <port>2181</port>
+        </node>
+    </zookeeper-servers>
+    <!--配置宏 hadoop22的配置 -->
+    <macros>
+        <!--当前节点存储第几个分片-->
+        <shard>01</shard>
+        <!--当前节点存储第几个分片的第几个副本
+        rep_分片号_副本号-->
+        <replica>rep_1_1</replica>
+    </macros>
+</yandex>
